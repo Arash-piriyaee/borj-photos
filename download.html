@@ -17,7 +17,6 @@ async function loadData(){
     const params = new URLSearchParams(window.location.search);
 
     const building = params.get("building");
-
     const type = params.get("type");
 
     const url =
@@ -28,7 +27,32 @@ async function loadData(){
     const data = await response.json();
 
     document.getElementById("status").innerHTML =
-        data.title;
+        "در حال دانلود تصاویر...";
+
+    for(let i=0;i<data.images.length;i++){
+
+        const imageName = data.images[i];
+
+        const imageUrl =
+            `apartments/${building}/${type}/${imageName}`;
+
+        setTimeout(()=>{
+
+            const link = document.createElement("a");
+
+            link.href = imageUrl;
+
+            link.download = imageName;
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
+
+        },i*700);
+
+    }
 
 }
 
