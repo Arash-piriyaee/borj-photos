@@ -1,15 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="fa">
 
 <head>
-
-<title>Downloader</title>
-
+    <meta charset="UTF-8">
+    <title>Downloader</title>
 </head>
 
 <body>
 
-<h1>Downloader Ready</h1>
+<h2 id="status">در حال بارگذاری...</h2>
+
+<script>
+
+async function loadData(){
+
+    const params = new URLSearchParams(window.location.search);
+
+    const building = params.get("building");
+
+    const type = params.get("type");
+
+    const url =
+        `apartments/${building}/${type}/images.json`;
+
+    const response = await fetch(url);
+
+    const data = await response.json();
+
+    document.getElementById("status").innerHTML =
+        data.title;
+
+}
+
+loadData();
+
+</script>
 
 </body>
 
